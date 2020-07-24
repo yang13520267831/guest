@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import auth
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -27,7 +27,9 @@ def login_action(request):
 
 
 # 发布会管理
+@login_required
 def event_manage(request):
-    username=request.COOKIES.get('user','')
+    # username=request.COOKIES.get('user','')
+    username=request.session.get('user','')
     print(username)
     return render(request, "event_manage.html",{"user":username})
